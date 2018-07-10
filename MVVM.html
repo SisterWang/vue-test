@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TodoList</title>
+	<script src="./vue.js"></script>
+	<script>
+		//M-V-VM模式：其中M、V两层和MVP模式中相同，区别在MVVM模式省略了控制层，而加入了VM层。
+		//VM层由vue实现，编写者无需了解其内部实现，可以主要将注意力放在M层
+		//jquery可以说是面向DOM的操作，vue可以说是面向数据的操作
+		window.onload = function(){
+			var app = new Vue({
+				el: "#app",
+				data: {
+					list: ["第一课","第二课","第三课"],
+					inputValue: ""
+				},
+				methods: {
+					handleBtnClick: function(){
+						this.list.push(this.inputValue);
+						this.inputValue = "";
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<div id="app">
+		<!-- 通过v-model来绑定输入框和inputValue -->
+		<input type="text" v-model="inputValue">
+		<!-- 通过v-on:click来绑定点击事件"handleBtnClick" -->
+		<button v-on:click="handleBtnClick">添加</button>
+		<ul>
+			<!-- 循环list并存储到item中 -->
+			<li v-for="item in list">{{item}}</li>
+		</ul>
+	</div>
+</body>
+</html>
