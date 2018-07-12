@@ -13,12 +13,19 @@
 			// 	template: "<li>{{content}}</li>"
 			// })
 
-			//局部组件
+			//局部(子)组件
 			var TodoItem = {
 				//接收数据
-				props: ['content'],
+				props: ['content','index'],
 				//组件模板：用模板的内容替换todo-item标签的内容
-				template: "<li>{{content}}</li>"
+				template: "<li @click = 'handleItemClick'>{{content}}</li>",
+				methods: {
+					handleItemClick: function(){
+						//alert("click");
+						//$emit向上级传递
+						this.$emit("delete",this.index);
+					}
+				}
 			}
 
 			var app = new Vue({
@@ -35,6 +42,10 @@
 					handleBtnClick: function(){
 						this.list.push(this.inputValue);
 						this.inputValue = "";
+					},
+					handleItemDelete: function(index){
+						//alert("delete");
+						this.list.splice(index,1);
 					}
 				}
 			})
@@ -50,7 +61,12 @@
 		<ul>
 			<!-- 循环list并存储到item中 -->
 			<!-- <li v-for="item in list">{{item}}</li> -->
-			<todo-item v-bind:content="item" v-for="item in list"></todo-item>
+			<todo-item 
+				v-bind:content="item" 
+				v-bind:index="index"
+				v-for="(item,index) in list" 
+				@delete="handleItemDelete">
+			</todo-item>
 		</ul>
 	</div>
 </body>
