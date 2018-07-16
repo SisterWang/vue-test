@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>三种数据修改方式</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div>{{fullName + " " + age + "岁"}}</div>
+		<div>{{fullname() + " 也" + age + "岁"}}</div>
+		<div>{{FullName + " 还" + age + "岁"}}</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				firstName: "曹",
+				lastName: "金鹏",
+				fullName: "曹金鹏",
+				age: 21
+			},
+			//监听
+			watch: {
+				//在以下定义的变量(firstName、lastName改变时才运行相应语句)
+				firstName: function(){
+					console.log("监听计算了一次");
+					this.fullName = this.firstName + this.lastName;
+				},
+				lastName: function(){
+					console.log("监听计算了一次");
+					this.fullName = this.firstName + this.lastName;
+				}
+			},
+			//方法(每次页面重新渲染都将再次执行)
+			methods: {
+				fullname: function(){
+					console.log("方法计算了一次");
+					return this.firstName + this.lastName + "2";
+				}
+			},
+			//计算(会进行缓存，只有在其依赖的值发生改变时才重新运行)
+			computed: {
+				FullName: function(){
+					console.log("计算了一次");
+					return this.firstName + this.lastName + "3";
+				}
+			}
+		});
+	</script>
+</body>
+</html>
