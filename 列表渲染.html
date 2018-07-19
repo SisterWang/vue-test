@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>列表渲染</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app" >
+		<template v-for="(item,index) of list" :key="item.id">
+			<div>{{item.text}}--{{index}}</div>
+		</template> 
+		<template v-for="(item,key,index) of userInfo" :key="userInfo.index">
+			<div>{{item}}--{{key}}--{{index}}</div>
+		</template>
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				//通过以下方法在修改数组的同时刷新页面:push pop shift unshift splice sort reverse或重新引用数组
+				list: [
+					{id: "01",text: "hello"},
+					{id: "02",text: "welcome"},
+					{id: "03",text: "吔屎啦你"}
+				],
+				//通过更改引用在修改对象的同时，刷新页面
+				userInfo: {
+					name: "曹金鹏",
+					age: 21,
+					gender: "male",
+					salary: "s"
+				}
+			}
+		});
+	</script>
+</body>
+</html>
