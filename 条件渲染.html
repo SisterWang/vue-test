@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>条件渲染</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- v-if和v-else必须连在一起写 -->
+		<div v-if="show">{{message}}</div>
+		<div v-else>Bye world</div>
+
+		<!-- v-show不会每次都进行渲染，而是改变display的值 -->
+		<div v-show="show">{{message}}</div>
+
+		<!-- 条件语句（连起来写） -->
+		<div v-if="t === 'a'">This is A</div>
+		<div v-else-if="t === 'b'">This is B</div>
+		<div v-else>This is others</div>
+		<div v-if="isName">
+			用户名<input type="text" key="name">
+		</div>
+		<div v-else>
+			密码<input type="text" key="password">
+		</div>
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				isName: true,
+				t: "a",
+				show: false,
+				message: "Hello world"
+			}
+		});
+	</script>
+</body>
+</html>
