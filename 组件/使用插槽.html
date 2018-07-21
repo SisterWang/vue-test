@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>使用插槽(slot)</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<child>
+			<h1>曹金鹏</h1>
+		</child>
+
+		<body-content>
+			<!-- 传插槽： -->
+			<!-- <div class="header" slot="header">header</div> -->
+			<div class="footer" slot="footer">footer</div>
+		</body-content>
+	</div>
+
+	<script>
+		Vue.component("child", {
+			template: "<div><p>hello</p><slot>默认内容</slot></div>"
+		});
+		Vue.component("body-content",{
+			//使用插槽
+			template: `<div>
+							<slot name='header'>未能找到插槽</slot>
+							<div class='content'>content</div>
+							<slot name='footer'></slot>
+					   </div>`
+		});
+
+		var vm = new Vue({
+			el: "#root"
+		});
+	</script>
+</body>
+</html>
