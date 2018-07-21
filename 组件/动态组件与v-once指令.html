@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态组件与v-once指令</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div id="root">
+		<!-- component的is属性：根据值的变化自动选择相应组件 -->
+		<component :is="type"></component>
+		<!-- <child-one v-if="type === 'child-one'"></child-one>
+		<child-two v-if="type === 'child-two'"></child-two> -->
+		<button @click='handleClick'>change</button>
+	</div>
+
+	<script>
+
+		Vue.component("child-one",{
+			//v-once:存入内存
+			template: "<div v-once>child-one</div>"
+		});
+
+		Vue.component("child-two",{
+			template: "<div v-once>child-two</div>"
+		});
+
+		var vm = new Vue({
+			el: "#root",
+			data: {
+				type: "child-one"
+			},
+			methods: {
+				handleClick: function(){
+					if(this.type === "child-one"){
+						this.type = "child-two";
+					}else{
+						this.type = "child-one";
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
